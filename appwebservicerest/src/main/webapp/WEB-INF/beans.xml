@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <context:component-scan base-package="edu.hneu.kpp.*" />
+    <jaxrs:server id="cxfRestWorkerService" address="/workers">
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+        </jaxrs:providers>
+        <jaxrs:serviceBeans>
+            <ref bean="workerRestService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json" />
+        </jaxrs:extensionMappings>
+    </jaxrs:server>
+    <bean id="workerRestService" class="edu.hneu.kpp.lab3.restservice.impl.WorkerRestServiceImpl" />
+    <bean id="workerService" class="edu.hneu.kpp.lab2.service.WorkerService" />
+
+</beans>
